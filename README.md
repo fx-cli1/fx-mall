@@ -11,9 +11,8 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  拉取项目过后，先npm i 
+2.  前端项目启动服务  npm run dev
 
 #### 使用说明
 
