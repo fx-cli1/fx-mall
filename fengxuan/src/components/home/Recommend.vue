@@ -1,14 +1,21 @@
 <template>
   <div>
-    <myswipe :imgsrclist="imgarr"></myswipe>
+    <myswipe
+      :imgsrclist="imgarr"
+      :autoplayFlag="active == '0' ? true : false"
+    ></myswipe>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import myswipe from "./Myswipe.vue";
 export default {
   components: {
     myswipe,
+  },
+  computed: {
+    ...mapState("homestore", ["active"]),
   },
   data() {
     return {

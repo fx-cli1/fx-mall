@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <h1>峰选商场</h1> -->
     <mytop></mytop>
-    <van-tabs v-model="active" animated title-active-color='#f90'>
+    <van-tabs v-model="activenum" animated title-active-color="#f90">
       <van-tab title="推荐">
         <recommend></recommend>
       </van-tab>
@@ -30,8 +30,11 @@ import television from "../components/home/Television.vue";
 import notebook from "../components/home/Notebook.vue";
 import intelligence from "../components/home/Intelligence.vue";
 import household from "../components/home/Household.vue";
+import { mapMutations, mapState } from "vuex";
+import {mymixin} from '../assets/mixins/index';
 export default {
   name: "Home",
+  mixins:[mymixin.mychekgetbs],
   components: {
     mytop,
     recommend,
@@ -40,11 +43,15 @@ export default {
     intelligence,
     household,
   },
-  data(){
-    return {
-      active:0
-    }
-  }
+  computed: {
+    ...mapState("homestore", ["active"]),
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    ...mapMutations("homestore", ["setActive"]),
+  },
 };
 </script>
 
