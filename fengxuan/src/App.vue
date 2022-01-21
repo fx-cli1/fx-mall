@@ -13,8 +13,11 @@
 
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex';
+import { mymixin } from './assets/mixins/index';
+
 export default {
+  mixins:[mymixin.mychekgetbs],
   data(){
     return {
       routerArr:['/','/classification','/find','/shoppingcart','/mine']
@@ -22,14 +25,6 @@ export default {
   },
   computed:{
     ...mapState(['active']),
-    activenum:{
-      get(){
-        return this.active;
-      },
-      set(v){
-        this.setActive(v);
-      }
-    }
   },
   methods: {
     ...mapMutations(['setActive']),
