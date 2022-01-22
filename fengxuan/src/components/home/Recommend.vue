@@ -4,6 +4,7 @@
       :imgsrclist="imgarr"
       :autoplayFlag="active == '0' ? true : false"
     ></myswipe>
+  <h1>11111111111111</h1>
   </div>
 </template>
 
