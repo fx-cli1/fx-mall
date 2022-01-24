@@ -23,6 +23,11 @@ export default {};
 
 <style scoped>
 .mytop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 750px;
+  z-index: 99;
   display: flex;
   align-items: center;
   background: rgb(242, 242, 242);
