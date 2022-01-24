@@ -56,10 +56,23 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  width: 375px;
+.home{
+  /* position: relative; */
+  padding-bottom: 100px;
+  overflow: hidden;
 }
 /deep/.van-tabs__nav--line {
   background: rgb(242, 242, 242);
+}
+/deep/.van-tabs__wrap{
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 750px;
+  z-index: 99;
+}
+/deep/.van-tabs__content{
+border-top: 1px solid #ccc;
+margin-top: 170px;
 }
 </style>
