@@ -11,11 +11,12 @@
 <script>
 import myswipe from "./Myswipe.vue";
 import { mapState } from "vuex";
-import myclasslist from './Shoppingclass.vue'
+import myclasslist from "./Shoppingclass.vue";
+import axios from 'axios'
 export default {
   components: {
     myswipe,
-    myclasslist
+    myclasslist,
   },
   computed: {
     ...mapState("homestore", ["active"]),
@@ -102,6 +103,12 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    console.log(1);
+    axios.post("http://localhost:8080/goods/add").then((res) => {
+      console.log(res);
+    });
   },
 };
 </script>
