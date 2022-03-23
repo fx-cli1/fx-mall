@@ -53,7 +53,11 @@
           </div>
         </div>
       </div>
+      <div class="phone-gd">
+        更多小米手机产品>
+      </div>
     </div>
+    <div class="divider_line"></div>
   </div>
 </template>
 
@@ -218,10 +222,19 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border-bottom: 1px solid #ccc;
 }
 .phone-list-item {
   width: 49%;
   position: relative;
+}
+.phone-gd{
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  font-size: 30px;
+  color: #999;
 }
 .info {
   width: 100%;
