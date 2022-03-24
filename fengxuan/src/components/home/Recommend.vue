@@ -37,25 +37,22 @@
       <div class="phone-list">
         <div class="phone-list-item" v-for="item in phoneList" :key="item.id">
           <div class="img">
-            <img
-              :src="item.imgsrc"
-              alt=""
-            />
+            <img :src="item.imgsrc" alt="" />
           </div>
           <div class="tag" v-if="item.gift">
-            <img src="@/assets/img/gift.png" alt="">
+            <img src="@/assets/img/gift.png" alt="" />
           </div>
           <div class="info">
-            <div class="name">{{item.goodsname}}</div>
-            <div class="brief">{{item.brief}}</div>
-            <div class="price">￥{{item.endprice}}<span>起</span><s>{{item.startprice}}</s></div>
+            <div class="name">{{ item.goodsname }}</div>
+            <div class="brief">{{ item.brief }}</div>
+            <div class="price">
+              ￥{{ item.endprice }}<span>起</span><s>{{ item.startprice }}</s>
+            </div>
             <div class="buybtn">立即购买</div>
           </div>
         </div>
       </div>
-      <div class="phone-gd">
-        更多小米手机产品>
-      </div>
+      <div class="phone-gd">更多小米手机产品></div>
     </div>
     <div class="divider_line"></div>
   </div>
@@ -65,6 +62,7 @@
 import { mapState } from "vuex";
 import myswipe from "./Myswipe.vue";
 import myclasslist from "./Shoppingclass.vue";
+import axios from 'axios';
 export default {
   components: {
     myswipe,
@@ -144,46 +142,57 @@ export default {
             "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f11f9df6b0b0b428f8c8fc3267131830.png?w=216&h=228&bg=FDEDE8",
         },
       ],
-      phoneList:[
+      phoneList: [
         {
-          id:1,
-          imgsrc:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b849e46756af7c95002aa3906ed77c13.jpg?thumb=1&w=344&h=280',
-          goodsname:'Xiaomi 11 Pro',
-          brief:"1/1.12''GN2｜骁龙888",
-          startprice:4999,
-          endprice:3399,
-          gift:false,
+          id: 1,
+          imgsrc:
+            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b849e46756af7c95002aa3906ed77c13.jpg?thumb=1&w=344&h=280",
+          goodsname: "Xiaomi 11 Pro",
+          brief: "1/1.12''GN2｜骁龙888",
+          startprice: 4999,
+          endprice: 3399,
+          gift: false,
         },
         {
-          id:2,
-          imgsrc:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/94b22bbff9fa84440a0aed48f9f63154.jpg?thumb=1&w=344&h=280',
-          goodsname:'Xiaomi MIX FOLD折叠屏手机',
-          brief:"折叠大屏｜自研芯片",
-          startprice:7999,
-          endprice:6999,
-           gift:false,
+          id: 2,
+          imgsrc:
+            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/94b22bbff9fa84440a0aed48f9f63154.jpg?thumb=1&w=344&h=280",
+          goodsname: "Xiaomi MIX FOLD折叠屏手机",
+          brief: "折叠大屏｜自研芯片",
+          startprice: 7999,
+          endprice: 6999,
+          gift: false,
         },
         {
-          id:3,
-          imgsrc:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/455c8ad8d204e4ffd67865a98ae40c7b.jpg?thumb=1&w=344&h=280',
-          goodsname:'Xiaomi 10S',
-          brief:"骁龙870 | 对称式双扬立体声",
-          startprice:undefined,
-          endprice:2699,
-           gift:true,
+          id: 3,
+          imgsrc:
+            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/455c8ad8d204e4ffd67865a98ae40c7b.jpg?thumb=1&w=344&h=280",
+          goodsname: "Xiaomi 10S",
+          brief: "骁龙870 | 对称式双扬立体声",
+          startprice: undefined,
+          endprice: 2699,
+          gift: true,
         },
         {
-          id:4,
-          imgsrc:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6dca45286d9d76d1f864a8ecf77f5600.jpg?thumb=1&w=344&h=280',
-          goodsname:'Note 9 5G',
-          brief:"天玑 800U处理器",
-          startprice:1299,
-          endprice:1149,
-          gift:false,
-        }
-      ]
+          id: 4,
+          imgsrc:
+            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6dca45286d9d76d1f864a8ecf77f5600.jpg?thumb=1&w=344&h=280",
+          goodsname: "Note 9 5G",
+          brief: "天玑 800U处理器",
+          startprice: 1299,
+          endprice: 1149,
+          gift: false,
+        },
+      ],
     };
   },
+  created(){
+     axios.get("http://localhost:8080/goods/recommendgoods").then((res) => {
+     let {data}=res;
+     console.log(data.data);
+     this.phoneList=data.data
+    });
+  }
 };
 </script>
 
@@ -228,7 +237,7 @@ export default {
   width: 49%;
   position: relative;
 }
-.phone-gd{
+.phone-gd {
   width: 100%;
   height: 100px;
   line-height: 100px;
@@ -262,22 +271,22 @@ export default {
   position: relative;
   display: inline-block;
 }
-.price s{
+.price s {
   font-size: 20px;
   color: #999;
 }
-.buybtn{
-    width:60%;
-    background: #ea625b;
-    border-radius: .05rem;
-    text-align: center;
-    color: #fff;
-    font-size: 28px;
-    padding: .18rem 0;
-    font-weight: 700;
-    margin: 0 auto;
+.buybtn {
+  width: 60%;
+  background: #ea625b;
+  border-radius: 0.05rem;
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
+  padding: 0.18rem 0;
+  font-weight: 700;
+  margin: 0 auto;
 }
-.tag{
+.tag {
   width: 100px;
   height: 100px;
   position: absolute;

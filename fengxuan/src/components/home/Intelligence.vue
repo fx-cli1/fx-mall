@@ -23,33 +23,33 @@ export default {
   },
   data() {
     return {
-      imgarr: [
-        {
-          id: 1,
-          imgsrc:
-            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0b2bb13c396cc6205dd91da3a91a275a.jpg?thumb=1&w=720&h=360",
-        },
-        {
-          id: 2,
-          imgsrc:
-            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/37bd342303515c7a1a54681599e319a1.jpg?thumb=1&w=720&h=360",
-        },
-        {
-          id: 3,
-          imgsrc:
-            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb4a8b7d9e77567c7330776a866e717f.jpg?thumb=1&w=720&h=360",
-        },
-        {
-          id: 4,
-          imgsrc:
-            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1ab1ffaaeb5ca4c02674e9f35b1fd17c.jpg?thumb=1&w=720&h=360",
-        },
-        {
-          id: 5,
-          imgsrc:
-            "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a2b3ab270e5ae4c9e85d6607cdb97008.jpg?thumb=1&w=720&h=360",
-        },
-      ],
+      // imgarr: [
+      //   {
+      //     id: 1,
+      //     imgsrc:
+      //       "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0b2bb13c396cc6205dd91da3a91a275a.jpg?thumb=1&w=720&h=360",
+      //   },
+      //   {
+      //     id: 2,
+      //     imgsrc:
+      //       "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/37bd342303515c7a1a54681599e319a1.jpg?thumb=1&w=720&h=360",
+      //   },
+      //   {
+      //     id: 3,
+      //     imgsrc:
+      //       "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb4a8b7d9e77567c7330776a866e717f.jpg?thumb=1&w=720&h=360",
+      //   },
+      //   {
+      //     id: 4,
+      //     imgsrc:
+      //       "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1ab1ffaaeb5ca4c02674e9f35b1fd17c.jpg?thumb=1&w=720&h=360",
+      //   },
+      //   {
+      //     id: 5,
+      //     imgsrc:
+      //       "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a2b3ab270e5ae4c9e85d6607cdb97008.jpg?thumb=1&w=720&h=360",
+      //   },
+      // ],
       shoppingclasslist: [
         {
           id: 1,
@@ -102,12 +102,15 @@ export default {
             "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d41a54c825db28e47888db6bd61349de.png",
         },
       ],
+      imgarr:[]
     };
   },
   created() {
     console.log(1);
-    axios.post("http://localhost:8080/goods/add").then((res) => {
-      console.log(res);
+    axios.get("http://localhost:8080/goods/swipe").then((res) => {
+     let {data}=res;
+     console.log(data.data);
+     this.imgarr=data.data
     });
   },
 };
