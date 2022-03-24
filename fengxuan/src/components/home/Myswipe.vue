@@ -2,7 +2,7 @@
   <div>
     <van-swipe
       class="my-swipe"
-      :autoplay="autoplayFlag ? 3000 : 0"
+      :autoplay="autoplayFlag ? 1000 : 0"
       indicator-color="white"
     >
       <van-swipe-item v-for="item in imgsrclist" :key="item.id">
