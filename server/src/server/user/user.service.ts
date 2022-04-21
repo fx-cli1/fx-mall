@@ -23,6 +23,7 @@ export class UserService {
   // 添加单个用户
   async addOne(body: CreateUserDTO): Promise<void> {
     const item = { _id: uuid(), ...body };
+    // console.log(item);
     await this.userModel.create(item);
   }
 
@@ -34,5 +35,10 @@ export class UserService {
   // 删除单个用户
   async deleteOne(_id: string): Promise<void> {
     await this.userModel.findByIdAndDelete(_id);
+  }
+  //以某种条件做查询
+  async conditionFind(params: object): Promise<User[]> {
+    console.log(params);
+    return await this.userModel.find(params);
   }
 }
