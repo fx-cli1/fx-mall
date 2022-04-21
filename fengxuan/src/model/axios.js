@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.url = 'http://localhost:8080/api';
+// axios.defaults.url = '/api';
 
 
 export default axios; 
