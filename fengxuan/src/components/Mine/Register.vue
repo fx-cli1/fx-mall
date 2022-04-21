@@ -35,7 +35,7 @@
 
 <script>
 // import userModel from "../../model/users/index";
-// import wyyModel from "../../model/wyy-mmyz/index";
+import wyyModel from "../../model/wyy-mmyz/index";
 export default {
   data() {
     return {
@@ -59,11 +59,11 @@ export default {
       // }).then(()=>{
 
       // });
-      // wyyModel.sendYzm({
-      //   phone: "13396135859",
-      // }).then((res)=>{
-      //   console.log(res);
-      // });
+      wyyModel.sendYzm({
+        phone: "18271833971",
+      }).then((res)=>{
+        console.log(res);
+      });
     },
     onClickLeft() {
       this.$router.go(-1);
