@@ -13,7 +13,7 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 
 1.  拉取项目过后，先npm i 
 2.  前端项目启动服务  npm run dev
-3.  文档接口  http://localhost:9080/docs
+3.  文档接口  http://101.35.104.121:9080/docs/
 4.  后端起服务 npm run start:dev
 
 #### 使用说明

@@ -6,7 +6,7 @@ import 'lib-flexible'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 import "./assets/iconfont/iconfont.css"
-import "./mock/index.js"
+// import "./mock/index.js"
 Vue.use(Vant);
 
 Vue.config.productionTip = false
