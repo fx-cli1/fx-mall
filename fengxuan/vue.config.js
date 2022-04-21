@@ -25,7 +25,7 @@ module.exports = {
                 }
             },
             '/wyy-api': {
-                target: 'http://localhost:5555',
+                target: 'http://101.35.104.121:5555',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/wyy-api': ''
