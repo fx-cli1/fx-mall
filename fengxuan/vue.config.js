@@ -24,6 +24,13 @@ module.exports = {
                     '^/api': '' // 在请求的时候 凡是/api开头的地址都可以跨域
                 }
             },
+            '/wyy-api': {
+                target: 'http://localhost:5555',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/wyy-api': ''
+                }
+            }
         }
     }
     // ...

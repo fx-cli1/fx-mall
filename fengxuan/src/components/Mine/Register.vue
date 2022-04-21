@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import userModel from "../../model/users/index";
+// import userModel from "../../model/users/index";
+// import wyyModel from "../../model/wyy-mmyz/index";
 export default {
   data() {
     return {
@@ -52,12 +53,17 @@ export default {
       //   password: this.form.password,
       // });
       // console.log(res);
-      userModel.register({
-        user_name: this.form.username,
-        password: this.form.password,
-      }).then(()=>{
-        
-      });
+      // userModel.register({
+      //   user_name: this.form.username,
+      //   password: this.form.password,
+      // }).then(()=>{
+
+      // });
+      // wyyModel.sendYzm({
+      //   phone: "13396135859",
+      // }).then((res)=>{
+      //   console.log(res);
+      // });
     },
     onClickLeft() {
       this.$router.go(-1);
