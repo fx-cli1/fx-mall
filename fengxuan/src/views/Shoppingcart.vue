@@ -1,12 +1,19 @@
 <template>
   <div>
-      <h1>购物车</h1>
+      <notebook></notebook>
   </div>
 </template>
 
 <script>
+import Notebook from "../components/home/Notebook.vue"
 export default {
+  components:{Notebook},
+  data(){
+    return{
 
+    }
+  }
+    
 }
 </script>
 
