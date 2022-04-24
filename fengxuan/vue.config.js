@@ -30,6 +30,13 @@ module.exports = {
                 pathRewrite: {
                     '^/wyy-api': ''
                 }
+            },
+            '/upload-api': {
+                target: 'http://localhost:9080',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/upload-api': ''
+                }
             }
         }
     }

@@ -3,15 +3,25 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Post,
-  Put
+  Put,
+  Req,
+  Request,
+  UploadedFile,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDTO, EditUserDTO, LoginUserDTO } from './user.dto';
 import { User } from './user.interface';
 import { UserService } from './user.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import  jwtModel from '../../jwt/index';
+import jwt from '../../jwt/index';
+import { createWriteStream } from 'fs';
+import { join } from 'path';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import multer = require('multer');
 
 interface UserResponse<T = unknown> {
   code: number;
@@ -27,12 +37,30 @@ export class UserController {
   // GET /user/users
   @ApiOperation({ summary: '获取所有用户信息' })
   @Get('users')
-  async findAll(): Promise<UserResponse<User[]>> {
-    return {
-      code: 200,
-      data: await this.userService.findAll(),
-      message: 'Success.'
-    };
+  async findAll(@Headers() Headers): Promise<UserResponse<User[]>> {
+    console.log(Headers.token);
+    let token = Headers.token;
+    if (token) {
+      let flag = jwt.jwtCheck(token);
+      if (flag) {
+        return {
+          code: 200,
+          data: await this.userService.findAll(),
+          message: 'Success.'
+        };
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败',
+        }
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token未传',
+      }
+    }
+
   }
 
   // GET /user/:_id
@@ -56,14 +84,14 @@ export class UserController {
     if (res && res.length > 0) {
       return {
         code: 200,
-        message: `${username}已被注册`,
+        message: username ? `${username}已被注册` : "username参数错误",
       }
     } else {
       let res1 = await this.userService.conditionFind({ phone });
       if (res1 && res1.length > 0) {
         return {
           code: 200,
-          message: `${phone}已被注册`,
+          message: phone ? `${phone}已被注册` : "phone参数错误",
         }
       } else {
         await this.userService.addOne(body);
@@ -85,7 +113,7 @@ export class UserController {
       return {
         code: 200,
         message: '登录成功',
-        token:jwtModel.jwtSign(body),
+        token: jwt.jwtSign(body),
       }
     } else {
       return {
@@ -118,5 +146,20 @@ export class UserController {
       code: 200,
       message: 'Success.'
     };
+  }
+  @Post('uploads')
+  @UseInterceptors(AnyFilesInterceptor())
+  async upload(@UploadedFiles() files: any) {
+    var fileList = files[0].originalname.split('.');
+    let newName = fileList[0][0] + '-' + Date.now() +'.'+ fileList[1];
+    const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName))
+    writeImage.write(files[0].buffer);
+    return {
+      code: 200,
+      data: {
+        headUrl: "http://localhost:9080" + '/uploads/' + newName
+      },
+      message: '上传成功'
+    }
   }
 }
