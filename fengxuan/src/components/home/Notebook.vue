@@ -14,7 +14,7 @@
       <div class="note-bottom">
           <div class="note-left">
             <p>RedmiBook Air 13</p>
-             <p>￥5199起11111</p>
+             <p>￥5199起</p>
            
           </div>
           <div class="note-right">
