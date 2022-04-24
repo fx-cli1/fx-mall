@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>发现12321</h1>
+    <h1>发现1/h1>
     <input type="text" ref="input" v-model="obj.a" />
   </div>
 </template>
