@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <van-tabbar v-model="activenum" @change="onChange">
+    <van-tabbar v-model="activenum" @change="onChange" v-show="flag">
       <van-tabbar-item><span class="iconfont icon-home"></span><br>首页</van-tabbar-item>
       <van-tabbar-item><span class="iconfont icon-fenlei"></span><br>分类</van-tabbar-item>
       <van-tabbar-item><span class="iconfont icon-faxian"></span><br>发现</van-tabbar-item>
@@ -15,12 +15,13 @@
 <script>
 import {mapMutations, mapState} from 'vuex';
 import { mymixin } from './assets/mixins/index';
-
+import bus from "./bus";
 export default {
   mixins:[mymixin.mychekgetbs],
   data(){
     return {
-      routerArr:['/','/classification','/find','/shoppingcart','/mine']
+      routerArr:['/','/classification','/find','/shoppingcart','/mine'],
+      flag:true
     }
   },
   computed:{
@@ -30,8 +31,13 @@ export default {
     ...mapMutations(['setActive']),
     onChange(index){
       this.$router.push(this.routerArr[index]);
-    }
+    },
   },
+  created(){
+    bus.$on("changeFlag",(flag)=>{
+      this.flag=flag;
+    })
+  }
 };
 </script>
 

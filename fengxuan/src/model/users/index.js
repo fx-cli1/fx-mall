@@ -1,9 +1,10 @@
 import axios from '../axios';
 export default {
-    login:()=>{
+    login:(data)=>{
         return axios({
-            method:'get',
-            url:'/'
+            method:'post',
+            url:'/api/user/login',
+            data
         })
     },
     register:(data)=>{

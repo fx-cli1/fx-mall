@@ -186,6 +186,9 @@ export default {
       ],
     };
   },
+  methods:{
+    
+  },
   created(){
      axios.get("http://localhost:8080/goods/recommendgoods").then((res) => {
      let {data}=res;

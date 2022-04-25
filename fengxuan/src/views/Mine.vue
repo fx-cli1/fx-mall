@@ -4,10 +4,14 @@
       <div class="nav_background">
         <div class="nav_img">
           <img src="https://m.mi.com/static/img/avatar.76a75b8f17.png" alt="" />
+          <!-- <img src="https://p9-passport.byteacctimg.com/img/user-avatar/3556c16524cc67bb3bd86d92db70dd9f~300x300.image" alt="" /> -->
         </div>
-        <div class="nav_right">
+        <div class="nav_right" v-show="!showFlag">
           <router-link to="/login">登录&nbsp;</router-link>
           <router-link to="/register">/&nbsp;注册</router-link>
+        </div>
+        <div class="nav_right1" v-show="showFlag">
+          <router-link to="">用户:{{this.username}}</router-link>
         </div>
       </div>
       <div class="order">
@@ -31,9 +35,7 @@
             <p>待收货</p>
           </li>
           <li>
-            <img
-              src="https://m.mi.com/static/img/nav-4.d68723895f.png"
-            />
+            <img src="https://m.mi.com/static/img/nav-4.d68723895f.png" />
 
             <p>退还修</p>
           </li>
@@ -43,47 +45,67 @@
         <ul>
           <li>
             <div class="point_img">
-              <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic211.nipic.com%2Ffile%2F20190321%2F15097685_214227601000_2.jpg&refer=http%3A%2F%2Fpic211.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882761&t=11bc02d0c1a986d43644018f59acc35f" alt="">
+              <img
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic211.nipic.com%2Ffile%2F20190321%2F15097685_214227601000_2.jpg&refer=http%3A%2F%2Fpic211.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882761&t=11bc02d0c1a986d43644018f59acc35f"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">会员中心</div>
           </li>
           <li>
             <div class="point_img">
-              <img src="https://img2.baidu.com/it/u=1395045750,931427369&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500" alt="">
+              <img
+                src="https://img2.baidu.com/it/u=1395045750,931427369&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">我的优惠</div>
           </li>
           <li>
             <div class="point_img">
-              <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F02%2F94%2F22%2F5ac4919fd814f_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882823&t=a0ea67fd7aa913c09849385a027c3674" alt="">
+              <img
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F02%2F94%2F22%2F5ac4919fd814f_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882823&t=a0ea67fd7aa913c09849385a027c3674"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">服务中心</div>
           </li>
           <li>
             <div class="point_img">
-              <img src="https://img2.baidu.com/it/u=2955870272,3322179466&fm=253&fmt=auto&app=138&f=JPEG?w=676&h=500" alt="">
+              <img
+                src="https://img2.baidu.com/it/u=2955870272,3322179466&fm=253&fmt=auto&app=138&f=JPEG?w=676&h=500"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">小米之家</div>
           </li>
-         <li>
+          <li>
             <div class="point_img">
-              <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.soutu123.com%2Felement_origin_min_pic%2F01%2F37%2F10%2F21573c3b17e7e31.jpg%21%2Ffw%2F700%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.soutu123.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882879&t=8bad2cfb44389c1f3cc6fd896dcfd126" alt="">
+              <img
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.soutu123.com%2Felement_origin_min_pic%2F01%2F37%2F10%2F21573c3b17e7e31.jpg%21%2Ffw%2F700%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.soutu123.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650882879&t=8bad2cfb44389c1f3cc6fd896dcfd126"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">我的F码</div>
           </li>
           <li>
             <div class="point_img">
-              <img src="https://img2.baidu.com/it/u=2161066602,3182026745&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=501" alt="">
+              <img
+                src="https://img2.baidu.com/it/u=2161066602,3182026745&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=501"
+                alt=""
+              />
             </div>
             <div class="point_wenzi">礼物码兑换</div>
           </li>
-         <li>
+          <li>
             <div class="point_img">
-              <img src="https://m.mi.com/static/img/i-setting.fb9625b3f2.png" alt="">
+              <img
+                src="https://m.mi.com/static/img/i-setting.fb9625b3f2.png"
+                alt=""
+              />
             </div>
-            <div class="point_wenzi">设置</div>
+            <div class="point_wenzi" @click="goExit">设置</div>
           </li>
-       
         </ul>
       </div>
     </div>
@@ -94,13 +116,30 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      token:"",
+      username:"",
+      showFlag:false,
+    };
+  },
+  methods: {
+    goExit(){
+      this.$router.push("/exit")
+    }
+  },
+  created() {
+    this.token=window.localStorage.getItem("token");
+    this.username=window.localStorage.getItem("username");
+    if(this.token){
+      this.showFlag=true
+    }
+    // console.log(window.localStorage.getItem("username"));
   },
 };
 </script>
 
-<style  scoped>
-.overall{
+<style scoped>
+.overall {
   background: #f5f5f5;
 }
 .nav_background {
@@ -120,6 +159,7 @@ export default {
 .nav_img > img {
   width: 100px;
   height: 100px;
+  border-radius: 50%;
 }
 .nav_right {
   width: 130px;
@@ -129,6 +169,17 @@ export default {
   line-height: 150px;
 }
 .nav_right > a {
+  color: white;
+  font-size: 26px;
+}
+.nav_right1 {
+  /* width: 130px; */
+  height: 150px;
+  float: left;
+
+  line-height: 150px;
+}
+.nav_right1 > a {
   color: white;
   font-size: 26px;
 }
@@ -171,14 +222,13 @@ export default {
   width: 56px;
   height: 56px;
 }
-.point{
- width: 100%;
-
+.point {
+  width: 100%;
 }
-.point>ul{
+.point > ul {
   margin-top: 20px;
 }
-.point>ul>li{
+.point > ul > li {
   width: 100%;
   height: 120px;
   background: white;
@@ -187,7 +237,7 @@ export default {
   line-height: 120px;
   font-size: 28px;
 }
-.point>ul>li:nth-child(2n+1){
+.point > ul > li:nth-child(2n + 1) {
   width: 100%;
   height: 120px;
   background: white;
@@ -197,21 +247,20 @@ export default {
   font-size: 28px;
   margin-top: 20px;
 }
-.point>ul>li .point_img{
- width: 120px;
- height: 120px;
- overflow: hidden;
- 
+.point > ul > li .point_img {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
 }
-.point>ul>li .point_img>img{
-    width: 60px;
+.point > ul > li .point_img > img {
+  width: 60px;
   height: 60px;
-  margin-top:30px;
+  margin-top: 30px;
 }
-.point_wenzi{
+.point_wenzi {
   width: 100%;
   text-align: left;
-  border-bottom:1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 </style>
 
