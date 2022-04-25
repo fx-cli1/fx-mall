@@ -50,7 +50,7 @@ export default {
           console.log(res);
           if (res.data.code == 200) {
             this.$toast(res.data.message);
-            window.localStorage.setItem("token", res.data.token);
+            window.sessionStorage.setItem("token", res.data.token);
             this.$router.push("/mine");
           } else {
             this.$toast(res.data.message);

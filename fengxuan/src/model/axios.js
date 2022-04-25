@@ -8,7 +8,7 @@ const server =axios.create({
         // headers是即将被发送的自定义请求头
     headers: {
         // 'Content-type': 'application/json, charset=utf-8',
-        'token':localStorage.getItem('token'),
+        'token':sessionStorage.getItem('token'),
     },
 })
 export default server; 
