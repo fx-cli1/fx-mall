@@ -11,8 +11,7 @@ import userModel from "../../model/users/index";
 export default {
   data() {
     return {
-      imgUrl:
-        "https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image",
+      imgUrl:'https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image'
     };
   },
   methods: {
@@ -25,6 +24,7 @@ export default {
       if (res.data.code == 200) {
         this.$nextTick(() => {
           this.imgUrl = res.data.headUrl;
+          // this.$('setImg',res.data.headUrl);
         });
       }
     },

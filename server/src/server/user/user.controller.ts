@@ -10,7 +10,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserDTO, EditUserDTO, LoginUserDTO } from './user.dto';
+import { CreateUserDTO, EditUserDTO, LoginUserDTO, SetPasswordDTO } from './user.dto';
 import { User } from './user.interface';
 import { UserService } from './user.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
@@ -26,7 +26,7 @@ interface UserResponse<T = unknown> {
   token?: string;
   headUrl?: string;
   headUrlList?: Array<Object>;
-  username?:string
+  username?: string
 }
 @ApiTags('账号操作')
 @Controller('user')
@@ -62,18 +62,35 @@ export class UserController {
 
   }
 
-  // GET /user/:_id
   @ApiOperation({ summary: '查找单个用户信息' })
-  @Get(':_id')
-  async findOne(@Param('_id') _id: string): Promise<UserResponse<User>> {
-    return {
-      code: 200,
-      data: await this.userService.findOne(_id),
-      message: 'Success.'
-    };
+  @Get('userinfo')
+  async findOne(@Headers('token') token: string): Promise<UserResponse<User>> {
+    if (token) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
+        let { _id } = jwtResult;
+        let res = await this.userService.findOne(_id);
+        let { username, headUrl } = res;
+        return {
+          code: 200,
+          username,
+          headUrl,
+          message: '查询个人信息成功',
+        }
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败'
+        }
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token未传'
+      }
+    }
   }
 
-  // POST /user
   @ApiOperation({ summary: '注册新用户' })
   @Post('add')
   async addOne(@Body() body: CreateUserDTO): Promise<UserResponse> {
@@ -105,38 +122,56 @@ export class UserController {
   @ApiOperation({ summary: '登录' })
   @Post('login')
   async login(@Body() body: LoginUserDTO): Promise<UserResponse> {
+    console.log(body);
     let username = body.username;
     let password = body.password;
+    console.log(username, password);
+
     let res = await this.userService.conditionFind({ username, password });
     if (res && res.length > 0) {
-      let { _id, username, phone ,headUrl} = res[0];
+      let { _id, username, phone } = res[0];
       return {
         code: 200,
         message: '登录成功',
         token: jwt.jwtSign({ _id, username, phone }),
-        headUrl,
-        username
       }
     } else {
       return {
-        code: 200,
+        code: 400,
         message: '登录失败，账号与密码不匹配'
       }
     }
   }
 
   // PUT /user/:_id
-  @ApiOperation({ summary: '修改用户信息' })
-  @Put(':_id')
+  @ApiOperation({ summary: '修改密码' })
+  @Post('setpassword')
   async editOne(
-    @Param('_id') _id: string,
-    @Body() body: EditUserDTO
+    @Body() body: SetPasswordDTO,
+    @Headers('token') token: string,
   ): Promise<UserResponse> {
-    await this.userService.editOne(_id, body);
-    return {
-      code: 200,
-      message: 'Success.'
-    };
+    if (token) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
+        let { _id } = jwtResult;
+        await this.userService.editOne(_id, { password: body.password });
+        return {
+          code: 200,
+          message: '密码修改成功.'
+        };
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败'
+        }
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token未传',
+      }
+    }
+
   }
 
   // DELETE /user/:_id
@@ -149,6 +184,7 @@ export class UserController {
       message: 'Success.'
     };
   }
+  @ApiOperation({ summary: '图片上传' })
   @Post('uploads')
   @UseInterceptors(AnyFilesInterceptor())
   async upload(@UploadedFiles() files: any, @Headers('token') token: string) {
@@ -167,9 +203,7 @@ export class UserController {
         this.userService.editOne(_id, { headUrl, headUrlList });
         return {
           code: 200,
-          data: {
-            headUrl
-          },
+          headUrl,
           message: '上传成功'
         }
       } else {
