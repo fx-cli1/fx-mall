@@ -10,7 +10,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserDTO, EditUserDTO, LoginUserDTO } from './user.dto';
+import { CreateUserDTO, EditUserDTO, LoginUserDTO, SetPasswordDTO } from './user.dto';
 import { User } from './user.interface';
 import { UserService } from './user.service';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
@@ -26,7 +26,7 @@ interface UserResponse<T = unknown> {
   token?: string;
   headUrl?: string;
   headUrlList?: Array<Object>;
-  username?:string
+  username?: string
 }
 @ApiTags('账号操作')
 @Controller('user')
@@ -109,7 +109,7 @@ export class UserController {
     let password = body.password;
     let res = await this.userService.conditionFind({ username, password });
     if (res && res.length > 0) {
-      let { _id, username, phone ,headUrl} = res[0];
+      let { _id, username, phone, headUrl } = res[0];
       return {
         code: 200,
         message: '登录成功',
@@ -126,17 +126,34 @@ export class UserController {
   }
 
   // PUT /user/:_id
-  @ApiOperation({ summary: '修改用户信息' })
-  @Put(':_id')
+  @ApiOperation({ summary: '修改密码' })
+  @Post('setpassword')
   async editOne(
-    @Param('_id') _id: string,
-    @Body() body: EditUserDTO
+    @Body() body: SetPasswordDTO,
+    @Headers('token') token: string,
   ): Promise<UserResponse> {
-    await this.userService.editOne(_id, body);
-    return {
-      code: 200,
-      message: 'Success.'
-    };
+    if (token) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
+        let { _id } = jwtResult;
+        await this.userService.editOne(_id, { password: body.password });
+        return {
+          code: 200,
+          message: '密码修改成功.'
+        };
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败'
+        }
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token未传',
+      }
+    }
+
   }
 
   // DELETE /user/:_id
@@ -149,6 +166,7 @@ export class UserController {
       message: 'Success.'
     };
   }
+  @ApiOperation({ summary: '图片上传' })
   @Post('uploads')
   @UseInterceptors(AnyFilesInterceptor())
   async upload(@UploadedFiles() files: any, @Headers('token') token: string) {
