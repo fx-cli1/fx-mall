@@ -178,7 +178,7 @@ export class UserController {
         var fileList = files[0].originalname.split('.');
         let newName = fileList[0][0] + '-' + Date.now() + '.' + fileList[1];
         const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName));
-        let headUrl = "http://localhost:9080" + '/uploads/' + newName;
+        let headUrl = "http://101.35.104.121:9080" + '/uploads/' + newName;
         writeImage.write(files[0].buffer);
         let { headUrlList } = userInfo;
         headUrlList.unshift(headUrl);
