@@ -31,7 +31,7 @@ export default {
   methods: {
     logOut() {
       window.localStorage.removeItem("token");
-      window.localStorage.removeItem("username");
+      window.localStorage.removeItem("username");//12312312312312123
       this.$toast("退出成功");
       this.$router.go(-1);
     },

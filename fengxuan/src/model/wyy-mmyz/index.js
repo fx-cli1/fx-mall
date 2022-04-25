@@ -1,4 +1,4 @@
-import axios from '../axios';
+import axios from 'axios';
 export default {
     sendYzm:(params)=>{  //发送短信
         return axios({
