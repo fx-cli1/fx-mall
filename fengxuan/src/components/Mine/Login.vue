@@ -48,12 +48,11 @@ export default {
         .login({ username: this.username, password: this.password })
         .then((res) => {
           console.log(res);
-          if(res.data.code==200){
+          if (res.data.code == 200) {
             this.$toast(res.data.message);
+            window.localStorage.setItem("token", res.data.token);
             this.$router.push("/mine");
-            window.localStorage.setItem("token",res.data.token);
-            window.localStorage.setItem("username",this.username);
-          }else{
+          } else {
             this.$toast(res.data.message);
           }
         });
