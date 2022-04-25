@@ -61,19 +61,36 @@ export class UserController {
     }
 
   }
-
-  // GET /user/:_id
+  
   @ApiOperation({ summary: '查找单个用户信息' })
-  @Get(':_id')
-  async findOne(@Param('_id') _id: string): Promise<UserResponse<User>> {
-    return {
-      code: 200,
-      data: await this.userService.findOne(_id),
-      message: 'Success.'
-    };
+  @Get('userinfo')
+  async findOne(@Headers('token') token: string): Promise<UserResponse<User>> {
+    if (token) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
+        let { _id } = jwtResult;
+        let res = await this.userService.findOne(_id);
+        let { username, headUrl } = res;
+        return {
+          code: 200,
+          username,
+          headUrl,
+          message: '查询个人信息成功',
+        }
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败'
+        }
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token未传'
+      }
+    }
   }
 
-  // POST /user
   @ApiOperation({ summary: '注册新用户' })
   @Post('add')
   async addOne(@Body() body: CreateUserDTO): Promise<UserResponse> {
@@ -114,12 +131,10 @@ export class UserController {
         code: 200,
         message: '登录成功',
         token: jwt.jwtSign({ _id, username, phone }),
-        headUrl,
-        username
       }
     } else {
       return {
-        code: 200,
+        code: 400,
         message: '登录失败，账号与密码不匹配'
       }
     }
