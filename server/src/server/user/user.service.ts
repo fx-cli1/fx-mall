@@ -28,7 +28,7 @@ export class UserService {
   }
 
   // 编辑单个用户
-  async editOne(_id: string, body: EditUserDTO): Promise<void> {
+  async editOne(_id: string, body: any): Promise<void> {
     await this.userModel.findByIdAndUpdate(_id, body);
   }
 

@@ -32,7 +32,7 @@ module.exports = {
                 }
             },
             '/upload-api': {
-                target: 'http://localhost:9080',
+                target: 'http://localhost:9080',   // 你本地不要用这个，本地用上面那个
                 changeOrigin: true,
                 pathRewrite: {
                     '^/upload-api': ''

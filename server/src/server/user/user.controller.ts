@@ -7,9 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
-  Request,
-  UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -21,13 +18,15 @@ import jwt from '../../jwt/index';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
-import multer = require('multer');
 
 interface UserResponse<T = unknown> {
   code: number;
   data?: T;
   message: string;
   token?: string;
+  headUrl?: string;
+  headUrlList?: Array<Object>;
+  username?:string
 }
 @ApiTags('账号操作')
 @Controller('user')
@@ -41,8 +40,8 @@ export class UserController {
     console.log(Headers.token);
     let token = Headers.token;
     if (token) {
-      let flag = jwt.jwtCheck(token);
-      if (flag) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
         return {
           code: 200,
           data: await this.userService.findAll(),
@@ -110,10 +109,13 @@ export class UserController {
     let password = body.password;
     let res = await this.userService.conditionFind({ username, password });
     if (res && res.length > 0) {
+      let { _id, username, phone ,headUrl} = res[0];
       return {
         code: 200,
         message: '登录成功',
-        token: jwt.jwtSign(body),
+        token: jwt.jwtSign({ _id, username, phone }),
+        headUrl,
+        username
       }
     } else {
       return {
@@ -150,22 +152,36 @@ export class UserController {
   @Post('uploads')
   @UseInterceptors(AnyFilesInterceptor())
   async upload(@UploadedFiles() files: any, @Headers('token') token: string) {
-    if (jwt.jwtCheck(token)) {
-      var fileList = files[0].originalname.split('.');
-      let newName = fileList[0][0] + '-' + Date.now() + '.' + fileList[1];
-      const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName))
-      writeImage.write(files[0].buffer);
-      return {
-        code: 200,
-
-        headUrl: "http://101.35.104.121:9080" + '/uploads/' + newName,
-
-        message: '上传成功'
+    if (token) {
+      let jwtResult = jwt.jwtCheck(token);
+      if (jwtResult) {
+        let { _id } = jwtResult;
+        let userInfo = await this.userService.findOne(_id);
+        var fileList = files[0].originalname.split('.');
+        let newName = fileList[0][0] + '-' + Date.now() + '.' + fileList[1];
+        const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName));
+        let headUrl = "http://101.35.104.121:9080" + '/uploads/' + newName;
+        writeImage.write(files[0].buffer);
+        let { headUrlList } = userInfo;
+        headUrlList.unshift(headUrl);
+        this.userService.editOne(_id, { headUrl, headUrlList });
+        return {
+          code: 200,
+          data: {
+            headUrl
+          },
+          message: '上传成功'
+        }
+      } else {
+        return {
+          code: 400,
+          message: 'token解析失败',
+        }
       }
     } else {
       return {
         code: 400,
-        message: 'token解析失败'
+        message: 'token未传',
       }
     }
 
