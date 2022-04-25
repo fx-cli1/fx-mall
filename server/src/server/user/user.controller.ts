@@ -61,7 +61,7 @@ export class UserController {
     }
 
   }
-  
+
   @ApiOperation({ summary: '查找单个用户信息' })
   @Get('userinfo')
   async findOne(@Headers('token') token: string): Promise<UserResponse<User>> {
@@ -122,11 +122,14 @@ export class UserController {
   @ApiOperation({ summary: '登录' })
   @Post('login')
   async login(@Body() body: LoginUserDTO): Promise<UserResponse> {
+    console.log(body);
     let username = body.username;
     let password = body.password;
+    console.log(username, password);
+
     let res = await this.userService.conditionFind({ username, password });
     if (res && res.length > 0) {
-      let { _id, username, phone, headUrl } = res[0];
+      let { _id, username, phone } = res[0];
       return {
         code: 200,
         message: '登录成功',
@@ -200,9 +203,7 @@ export class UserController {
         this.userService.editOne(_id, { headUrl, headUrlList });
         return {
           code: 200,
-          data: {
-            headUrl
-          },
+          headUrl,
           message: '上传成功'
         }
       } else {

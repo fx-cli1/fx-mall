@@ -24,14 +24,14 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://101.35.104.121:9080',// 要跨域的域名
+                target: 'http://localhost:9080',// 要跨域的域名
                 changeOrigin: true, // 是否开启跨域
                 pathRewrite: {
                     '^/api': '' // 在请求的时候 凡是/api开头的地址都可以跨域
                 }
             },
             '/wyy-api': {
-                target: 'http://101.35.104.121:5555',
+                target: 'http://localhost:5555',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/wyy-api': ''
