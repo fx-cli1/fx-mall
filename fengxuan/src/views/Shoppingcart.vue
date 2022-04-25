@@ -6,23 +6,29 @@
       left-arrow
       @click-left="onClickLeft"
     />
+    <!-- <notebook></notebook> -->
   </div>
 </template>
 
 <script>
-import bus from "../bus"
+import bus from "../bus";
+// import Notebook from "../components/home/Notebook.vue"
 export default {
+  // components:{Notebook},
   methods: {
     onClickLeft() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
   },
-  created(){
-    bus.$emit("changeFlag",false);
+  data() {
+    return {};
   },
-  destoryed(){
-    bus.$emit("changeFlag",true);
-  }
+  created() {
+    bus.$emit("changeFlag", false);
+  },
+  destoryed() {
+    bus.$emit("changeFlag", true);
+  },
 };
 </script>
 
