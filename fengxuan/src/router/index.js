@@ -38,6 +38,16 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('../components/Mine/Register.vue')
+  },
+  {
+    path:'/exit',
+    name:'exit',
+    component:()=>import('../components/Mine/Exit.vue')
+  },
+  {
+    path:'/detail',
+    name:'detail',
+    component:()=>import('../views/Detail.vue')
   }
 ]
 
