@@ -5,4 +5,6 @@ export interface User extends Document {
   readonly username: string;
   readonly password: string;
   readonly phone:string;
+  readonly headUrl:string;
+  readonly headUrlList:Array<Object>
 }
