@@ -3,7 +3,7 @@
     <div>
       <div class="nav_background">
         <div class="nav_img">
-          <pictureUpload />
+          <pictureUpload ref="pictureupload" />
           <!-- <img src="https://m.mi.com/static/img/avatar.76a75b8f17.png" alt="" /> -->
           <!-- <img src="https://p9-passport.byteacctimg.com/img/user-avatar/3556c16524cc67bb3bd86d92db70dd9f~300x300.image" alt="" /> -->
         </div>
@@ -121,17 +121,17 @@
 
 <script>
 import userModel from "../model/users/index";
-import pictureUpload from "../components/Mine/PictureUpload.vue"
+import pictureUpload from "../components/Mine/PictureUpload.vue";
 export default {
-  components:{
-    pictureUpload
+  components: {
+    pictureUpload,
   },
   data() {
     return {
       token: "",
       username: "",
       showFlag: false,
-      show:true,
+      show: true,
     };
   },
   methods: {
@@ -140,11 +140,12 @@ export default {
     },
   },
   created() {
-    this.token = window.localStorage.getItem("token");
+    this.token = sessionStorage.getItem("token");
     userModel.userinfo().then((res) => {
       // console.log(res);
       this.username = res.data.username;
-      this.show=false;
+      this.$refs.pictureupload.imgUrl = res.data.headUrl?res.data.headUrl:'https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image';
+      this.show = false;
     });
     if (this.token) {
       this.showFlag = true;
