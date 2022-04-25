@@ -149,17 +149,25 @@ export class UserController {
   }
   @Post('uploads')
   @UseInterceptors(AnyFilesInterceptor())
-  async upload(@UploadedFiles() files: any) {
-    var fileList = files[0].originalname.split('.');
-    let newName = fileList[0][0] + '-' + Date.now() +'.'+ fileList[1];
-    const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName))
-    writeImage.write(files[0].buffer);
-    return {
-      code: 200,
-      data: {
-        headUrl: "http://localhost:9080" + '/uploads/' + newName
-      },
-      message: '上传成功'
+  async upload(@UploadedFiles() files: any, @Headers('token') token: string) {
+    if (jwt.jwtCheck(token)) {
+      var fileList = files[0].originalname.split('.');
+      let newName = fileList[0][0] + '-' + Date.now() + '.' + fileList[1];
+      const writeImage = createWriteStream(join(__dirname, '../../../public/uploads', newName))
+      writeImage.write(files[0].buffer);
+      return {
+        code: 200,
+
+        headUrl: "http://101.35.104.121:9080" + '/uploads/' + newName,
+
+        message: '上传成功'
+      }
+    } else {
+      return {
+        code: 400,
+        message: 'token解析失败'
+      }
     }
+
   }
 }
