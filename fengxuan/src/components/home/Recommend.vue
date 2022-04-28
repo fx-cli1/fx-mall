@@ -35,7 +35,7 @@
         alt=""
       />
       <div class="phone-list">
-        <div class="phone-list-item" v-for="item in phoneList" :key="item.id">
+        <div class="phone-list-item" v-for="item in phoneList" :key="item.id" @click="gotoDetail(item.endprice)">
           <div class="img">
             <img :src="item.imgsrc" alt="" />
           </div>
@@ -187,7 +187,9 @@ export default {
     };
   },
   methods:{
-    
+    gotoDetail(endprice){
+      this.$router.push("/detail/"+endprice)
+    }
   },
   created(){
      axios.get("http://localhost:8080/goods/recommendgoods").then((res) => {

@@ -51,13 +51,9 @@ export default {
           if (res.data.code == 200) {
             this.$toast(res.data.message);
             window.sessionStorage.setItem("token", res.data.token);
-<<<<<<< HEAD
-            this.$router.push("/mine");
-=======
             setTimeout(() => {
               this.$router.push("/mine");
             }, 50);
->>>>>>> master
           } else {
             this.$toast(res.data.message);
           }

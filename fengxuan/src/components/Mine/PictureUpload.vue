@@ -1,6 +1,6 @@
 <template>
   <div class="Picture-upload">
-    <van-uploader :after-read="afterRead">
+    <van-uploader :after-read="afterRead" :disabled="uploadFlag">
       <img :src="imgUrl" alt="" class="img" />
     </van-uploader>
   </div>
@@ -11,7 +11,9 @@ import userModel from "../../model/users/index";
 export default {
   data() {
     return {
-      imgUrl:'https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image'
+      uploadFlag: false,
+      imgUrl:
+        "https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image",
     };
   },
   methods: {
@@ -30,7 +32,10 @@ export default {
     },
   },
   created() {
-    console.log(window.localStorage.getItem("token"));
+    // console.log(window.sessionStorage.getItem("token"));
+    if (!window.sessionStorage.getItem("token")) {
+      this.uploadFlag = true;
+    }
   },
 };
 </script>
@@ -40,7 +45,7 @@ export default {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: #f00;
+  /* background: #f00; */
 }
 >>> .van-uploader__input {
   width: 100px;

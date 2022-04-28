@@ -128,7 +128,6 @@ export default {
   },
   data() {
     return {
-      token: "",
       username: "",
       showFlag: false,
       show: true,
@@ -140,14 +139,16 @@ export default {
     },
   },
   created() {
-    this.token = sessionStorage.getItem("token");
+    console.log(sessionStorage.getItem("token"));
     userModel.userinfo().then((res) => {
-      // console.log(res);
+      console.log(res);
       this.username = res.data.username;
-      this.$refs.pictureupload.imgUrl = res.data.headUrl?res.data.headUrl:'https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image';
+      this.$refs.pictureupload.imgUrl = res.data.headUrl
+        ? res.data.headUrl
+        : "https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image";
       this.show = false;
     });
-    if (this.token) {
+    if (window.sessionStorage.getItem("token")) {
       this.showFlag = true;
     }
   },
