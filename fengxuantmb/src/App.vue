@@ -7,7 +7,7 @@
       <el-aside class="aside">
         <div class="head">
           <div>
-            <img src="./assets/1.jpg" alt="logo" />
+            <img src="./assets/logo.png" alt="logo" />
             <span>峰选后台管理</span>
           </div>
         </div>

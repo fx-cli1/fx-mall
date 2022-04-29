@@ -3,7 +3,8 @@
     <div>
       <div class="nav_background">
         <div class="nav_img">
-          <img src="https://m.mi.com/static/img/avatar.76a75b8f17.png" alt="" />
+          <pictureUpload ref="pictureupload" />
+          <!-- <img src="https://m.mi.com/static/img/avatar.76a75b8f17.png" alt="" /> -->
           <!-- <img src="https://p9-passport.byteacctimg.com/img/user-avatar/3556c16524cc67bb3bd86d92db70dd9f~300x300.image" alt="" /> -->
         </div>
         <div class="nav_right" v-show="!showFlag">
@@ -11,7 +12,7 @@
           <router-link to="/register">/&nbsp;注册</router-link>
         </div>
         <div class="nav_right1" v-show="showFlag">
-          <router-link to="">用户:{{this.username}}</router-link>
+          <router-link to="">用户:{{ this.username }}</router-link>
         </div>
       </div>
       <div class="order">
@@ -108,32 +109,48 @@
           </li>
         </ul>
       </div>
+      <van-overlay :show="show" @click="show = false">
+        <div class="wrapper" @click.stop>
+          <van-loading size="24px">加载中...</van-loading>
+        </div>
+      </van-overlay>
     </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import userModel from "../model/users/index";
+import pictureUpload from "../components/Mine/PictureUpload.vue";
 export default {
+  components: {
+    pictureUpload,
+  },
   data() {
     return {
-      token:"",
-      username:"",
-      showFlag:false,
+      username: "",
+      showFlag: false,
+      show: true,
     };
   },
   methods: {
-    goExit(){
-      this.$router.push("/exit")
-    }
+    goExit() {
+      this.$router.push("/exit");
+    },
   },
   created() {
-    this.token=window.localStorage.getItem("token");
-    this.username=window.localStorage.getItem("username");
-    if(this.token){
-      this.showFlag=true
+    console.log(sessionStorage.getItem("token"));
+    userModel.userinfo().then((res) => {
+      console.log(res);
+      this.username = res.data.username;
+      this.$refs.pictureupload.imgUrl = res.data.headUrl
+        ? res.data.headUrl
+        : "https://p9-passport.byteacctimg.com/img/mosaic-legacy/3791/5070639578~300x300.image";
+      this.show = false;
+    });
+    if (window.sessionStorage.getItem("token")) {
+      this.showFlag = true;
     }
-    // console.log(window.localStorage.getItem("username"));
   },
 };
 </script>
@@ -261,6 +278,19 @@ export default {
   width: 100%;
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.block {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
 }
 </style>
 

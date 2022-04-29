@@ -2,7 +2,7 @@
   <div class="login">
     <div class="login-container">
       <div class="header">
-        <img class="logo" src="../assets/1.jpg" />
+        <img class="logo" src="../assets/login.png" />
         <div class="name">
           <div class="title">峰选商城</div>
           <div class="tips">峰选后台管理系统</div>

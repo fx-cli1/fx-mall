@@ -9,11 +9,15 @@ export default new Vuex.Store({
     storage: window.sessionStorage
   })],
   state: {
-    active: 0
+    active: 0,
+    flag: true
   },
   mutations: {
     setActive(state, index) {
       state.active = index;
+    },
+    changFlag(state, bool) {
+      state.flag = bool;
     }
   },
   actions: {

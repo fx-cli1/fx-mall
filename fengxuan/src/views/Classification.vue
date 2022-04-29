@@ -7,6 +7,11 @@
           <div class="one">
             <div class="one-1">
               <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+              <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+              <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+              <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+              <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+              <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
             </div>
             <div class="one-1">
               <van-image src="https://img01.yzcdn.cn/vant/apple-2.jpg" />
